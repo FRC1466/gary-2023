@@ -58,4 +58,8 @@ public final class Constants {
     public final static Gains DRIVE_VELOCITY  = new Gains(0.10509, 0, 0, 0,  0,  0.6);
     public final static Gains INTAKE_POSITION  = new Gains(0.034, 0.00001, 0, 0,  0,  0.25);
   }
+  public static final class GyroConstants {
+    public static final int GYRO_ID = 20;
+    
+    }
 }

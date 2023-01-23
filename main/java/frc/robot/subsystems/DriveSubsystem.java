@@ -9,7 +9,10 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -21,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ConversionConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.GyroConstants;
 import frc.robot.Constants.PIDConstants;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -34,6 +38,8 @@ public class DriveSubsystem extends SubsystemBase {
   ChassisSpeeds speeds = new ChassisSpeeds();
   DifferentialDriveWheelSpeeds wheelSpeeds = DriveConstants.KINEMATICS.toWheelSpeeds(speeds);
   DifferentialDrivePoseEstimator poseEstimator;
+  WPI_TalonSRX gyroConnect = new WPI_TalonSRX(GyroConstants.GYRO_ID);
+  WPI_PigeonIMU gyroPigeonIMU = new WPI_PigeonIMU(gyroConnect);
   private void initializeMotors() { //set configs of motors
     for (int i=0; i<motors.length; i++) {
       motors[i].configFactoryDefault();
@@ -122,6 +128,7 @@ public class DriveSubsystem extends SubsystemBase {
       motors[i].configPeakOutputReverse(-peakOutput);
     }
   }
+
 }
 
 
