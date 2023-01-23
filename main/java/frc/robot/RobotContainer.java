@@ -7,7 +7,9 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Auto;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.PneumaticsCommand;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.PneumaticsSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -23,11 +25,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_DriveSubsystem = new DriveSubsystem();
+  private final PneumaticsSubsystem m_PneumaticsSubsystem = new PneumaticsSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final XboxController m_driverController =
       new XboxController(OperatorConstants.kDriverControllerPort);
   private final DriveCommand m_DriveCommand = new DriveCommand(m_DriveSubsystem, m_driverController);
+  private final PneumaticsCommand m_PneumaticsCommand = new PneumaticsCommand(m_PneumaticsSubsystem, m_driverController);
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -35,6 +39,8 @@ public class RobotContainer {
     m_DriveSubsystem.setDefaultCommand(
       m_DriveCommand
     );
+    m_PneumaticsSubsystem.setDefaultCommand(m_PneumaticsCommand);
+
 
   }
 
