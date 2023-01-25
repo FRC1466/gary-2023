@@ -27,7 +27,7 @@ public class DriveCommand extends CommandBase {
     forward =
       (m_controller.getRightTriggerAxis() - m_controller.getLeftTriggerAxis())
       * DriveConstants.FORWARD_SCALE;
-    rot = Math.abs(m_controller.getLeftX()) >.1?  m_controller.getLeftX() * DriveConstants.ROT_SCALE * -1: 0;
+    rot = Math.abs(m_controller.getLeftX()) >.1?  m_controller.getLeftX() * -DriveConstants.ROT_SCALE: 0;
     m_drive.updateSpeeds(forward, rot);
     m_drive.drivePID();
 }
