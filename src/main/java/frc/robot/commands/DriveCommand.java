@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class DriveCommand extends CommandBase {
   private final DriveSubsystem m_drive;
   private final XboxController m_controller;
-  private int PIDIter = 0;
   private double forward;
   private double rot;
 
