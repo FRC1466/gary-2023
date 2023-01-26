@@ -27,7 +27,8 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final XboxController m_driverController =
       new XboxController(OperatorConstants.kDriverControllerPort);
-  private final DriveCommand m_DriveCommand = new DriveCommand(m_DriveSubsystem, m_driverController);
+  private final DriveCommand m_DriveCommand = new DriveCommand(m_DriveSubsystem, m_driverController); 
+  // optimal method would be to input DoubleSuppliers into the Commands instead of the raw controller inputs (better coding practice)
   private final PneumaticsCommand m_PneumaticsCommand = new PneumaticsCommand(m_PneumaticsSubsystem, m_driverController);
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
