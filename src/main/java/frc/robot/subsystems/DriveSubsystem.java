@@ -126,7 +126,6 @@ public class DriveSubsystem extends SubsystemBase {
       motors[i].configPeakOutputReverse(-peakOutput);
     }
   }
-
 }
 
 
