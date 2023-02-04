@@ -52,7 +52,9 @@ public class DriveSubsystem extends SubsystemBase {
       }
     }
   }
-  
+  public void initializeGyro() {
+    gyroPigeonIMU.reset();
+  }
   private void initializePID() { //set configs of PID
     for (WPI_TalonFX motor : motors) 
     {
@@ -94,13 +96,21 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("vel_I", PIDConstants.DRIVE_VELOCITY.I);
     SmartDashboard.putNumber("vel_D", PIDConstants.DRIVE_VELOCITY.D);
   }
-
+  public double getLeftDistanceMeters() {
+    return motors[0].getSelectedSensorPosition()*ConversionConstants.METERS_PER_TICK;
+  
+  }
+  public double getRightDistanceMeters() {
+    return motors[3].getSelectedSensorPosition()*ConversionConstants.METERS_PER_TICK;
+  
+  }
 
   public DriveSubsystem() {
     initializeMotors();
     initializePID();
     initializePIDConstants();
-    poseEstimator= new DifferentialDrivePoseEstimator(DriveConstants.KINEMATICS, new Rotation2d(), 0, 0, new Pose2d());
+    initializeGyro();
+    poseEstimator= new DifferentialDrivePoseEstimator(DriveConstants.KINEMATICS,gyroPigeonIMU.getRotation2d(), getLeftDistanceMeters(), getRightDistanceMeters(), new Pose2d());
   }
   /*private void updatePose() {
 
@@ -125,6 +135,13 @@ public class DriveSubsystem extends SubsystemBase {
       motors[i].configPeakOutputForward(peakOutput);
       motors[i].configPeakOutputReverse(-peakOutput);
     }
+  }
+  @Override
+  public void periodic() {
+    poseEstimator.update(gyroPigeonIMU.getRotation2d(), getLeftDistanceMeters(), getRightDistanceMeters());
+    SmartDashboard.putNumber("PoseX", poseEstimator.getEstimatedPosition().getX());
+    SmartDashboard.putNumber("PoseY", poseEstimator.getEstimatedPosition().getY());
+    SmartDashboard.putNumber("PoseRot", poseEstimator.getEstimatedPosition().getRotation().getDegrees());
   }
 }
 
